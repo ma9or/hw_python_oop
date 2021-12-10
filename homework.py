@@ -75,11 +75,11 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    COEFF_CALORIES_3 : float = 0.035
-    COEFF_CALORIES_4 : float = 0.029
+    COEFF_CALORIES_3: float = 0.035
+    COEFF_CALORIES_4: float = 0.029
 
     def __init__(self,
-                 action: int, 
+                 action: int,
                  duration: float,
                  weight: float,
                  height: float) -> None:
@@ -89,7 +89,7 @@ class SportsWalking(Training):
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         spent_calories = ((self.COEFF_CALORIES_3 * self.weight
-                          + (self.get_mean_speed() ** 2 
+                          + (self.get_mean_speed() ** 2
                            // self.height) * self.COEFF_CALORIES_4
                            * self.weight) * self.duration * self.HOUR_MIN)
         return spent_calories
@@ -128,9 +128,9 @@ def read_package(workout_type: str, data: list) -> Training:
     sport = {'SWM': Swimming,
              'RUN': Running,
              'WLK': SportsWalking}
-    if workout_type in sport.keys():         
+    if workout_type in sport.keys():
         return sport[workout_type](*data)
-    
+
 
 def main(training: Training) -> None:
     """Главная функция."""
