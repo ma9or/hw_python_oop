@@ -1,3 +1,6 @@
+from typing import List, Union
+
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
@@ -123,13 +126,14 @@ class Swimming(Training):
         return spent_calories
 
 
-def read_package(workout_type: str, data: list) -> Training:
+def read_package(workout_type: str, data: List[Union[int, float]]) -> Training:
     """Прочитать данные полученные от датчиков."""
     sport = {'SWM': Swimming,
              'RUN': Running,
              'WLK': SportsWalking}
-    if workout_type in sport.keys():
-        return sport[workout_type](*data)
+    if workout_type not in sport:
+        raise ValueError('Ошибка: такого ключа нет')
+    return sport[workout_type](*data)
 
 
 def main(training: Training) -> None:
